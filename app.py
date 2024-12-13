@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, render_template
 from flask_mysqldb import MySQL
 
 
@@ -19,7 +19,7 @@ def hello():
 def get_users():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM users")
-    result = cur.fetchall()
+    users = cur.fetchall()
     cur.close()
-    return jsonify(result)
+    return render_template('users.html', users=users)
 
