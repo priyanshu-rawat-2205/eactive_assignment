@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>users</title>
     <style>
         table {
             border-collapse: collapse;
@@ -26,17 +26,18 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
             </tr>
         </thead>
         <tbody>
             {% for user in users %}
+            
             <tr>
                 <td>{{ user['id'] }}</td>
-                <td>{{ user['name'] }}</td>
-                <td>{{ user['email'] }}</td>
-                <td>{{ user['role'] }}</td>
+                <td>
+                    <a href="users/{{ user['id'] }}">
+                        {{ user['name'] }}
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
