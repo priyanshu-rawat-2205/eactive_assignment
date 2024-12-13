@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, render_template, request, flash, url_for
+from flask import Flask, redirect, render_template, request, flash, url_for
 from flask_mysqldb import MySQL
 
 
@@ -30,7 +30,7 @@ def get_user(id):
     cur.execute(f"SELECT * FROM users WHERE id = {id}")
     user = cur.fetchall()
     cur.close()
-    return jsonify(user)
+    return render_template('user.html', users=user)
 
 @app.route('/new_user')
 def new_user():
