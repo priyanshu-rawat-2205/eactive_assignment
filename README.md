@@ -84,6 +84,15 @@ SELECT * FROM users
 ```sql
 SELECT * FROM users WHERE id = %s"
 ```
+
+### SQL Schema
+the schema is written in the `create_database.py` script
+
+```sql
+CREATE TABLE users (id int NOT NULL AUTO_INCREMENT, name varchar(255), email varchar(255), role varchar(255),  PRIMARY KEY (id));
+```
+
+
 ## Contribution
 
 If you want to contribute to the project 
