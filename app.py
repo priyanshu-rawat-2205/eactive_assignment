@@ -1,10 +1,9 @@
-from flask import Flask, redirect, render_template, request, flash, url_for
+from flask import Flask, redirect, render_template, request, url_for
 from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
 app.config.from_object('config.CONFIG')
-app.secret_key = 'some secret'
 
 mysql = MySQL(app)
 
@@ -27,9 +26,15 @@ def all_users():
 @app.route('/users/<id>')
 def get_user(id):
     cur = mysql.connection.cursor()
-    cur.execute(f"SELECT * FROM users WHERE id = {id}")
-    user = cur.fetchall()
-    cur.close()
+
+    try:
+        cur.execute("SELECT * FROM users WHERE id = %s", id)
+        user = cur.fetchall()
+    except Exception as e:
+        print(f"error {e}")
+    finally:
+        cur.close()
+
     return render_template('user.html', users=user)
 
 @app.route('/new_user')
@@ -43,10 +48,16 @@ def create_user():
     role = request.form['role']
 
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO users (name, email, role) VALUE (%s, %s, %s)", (name, email, role))
-    mysql.connection.commit()
-    flash("user created successfully", "success")
-    cur.close()
+
+    try:
+
+        cur.execute("INSERT INTO users (name, email, role) VALUE (%s, %s, %s)", (name, email, role))
+        mysql.connection.commit()
+    except Exception as e:
+        mysql.connection.rollback()
+        print(f"error: {e}")
+    finally:
+        cur.close()
 
     return redirect(url_for('all_users'))
 
