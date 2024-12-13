@@ -1,0 +1,24 @@
+{
+    "mock_data": [
+        {
+            "name": "prince",
+            "email": "prince@test.com",
+            "role": "QA"
+        },
+        {
+            "name": "colby",
+            "email": "colby@test.com",
+            "role": "Engineer"
+        },
+        {
+            "name": "smith",
+            "email": "smith@test.com",
+            "role": "Designer"
+        },
+        {
+            "name": "aaron",
+            "email": "aaron@test.com",
+            "role": "Developer"
+        }
+    ]
+}
